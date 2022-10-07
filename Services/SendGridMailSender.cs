@@ -16,7 +16,7 @@ namespace DecidioTestExcersice.Services
             this.from = new EmailAddress { Email = from.Address, Name = from.User };
         }
 
-        public Task SendEmailAsync(MailAddress to, string subject, string body)
+        public async Task SendEmailAsync(MailAddress to, string subject, string body)
         {
             var client = new SendGridClient(this.apiKey);
             var message = new SendGridMessage
@@ -26,7 +26,7 @@ namespace DecidioTestExcersice.Services
                 PlainTextContent = body,
             };
 
-            return client.SendEmailAsync(message);
+            Response response = await client.SendEmailAsync(message);
         }
     }
 }
